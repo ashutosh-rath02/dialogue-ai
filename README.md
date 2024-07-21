@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Screenflick: Global Movie Dialogue Generator
+
+## Description
+
+Screenflick is a web application that generates iconic movie quotes from films around the world. Using advanced AI technology, it provides users with memorable dialogues from their favorite movies, complete with character names and English translations when necessary.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Contact](#contact)
+
+## Features
+
+- Generate movie quotes based on user input
+- Provide character names and English translations
+- Responsive design for mobile and desktop
+- SEO-friendly structure
+
+## Technologies Used
+
+- Next.js 13 (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Google Fonts (DM Sans, Space Mono)
+- Google Generative AI (Gemini model)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (v14 or later)
+- npm (v6 or later)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+        ```Certainly! Here's a comprehensive README for your project, which includes documentation, setup instructions, and other important information:
 
-## Learn More
+    markdownCopy# CineQuote: Global Movie Dialogue Generator
 
-To learn more about Next.js, take a look at the following resources:
+## Description
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+CineQuote is a web application that generates iconic movie quotes from films around the world. Using advanced AI technology, it provides users with memorable dialogues from their favorite movies, complete with character names and English translations when necessary.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Table of Contents
 
-## Deploy on Vercel
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [Contact](#contact)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Generate movie quotes based on user input
+- Provide character names and English translations
+- Responsive design for mobile and desktop
+- SEO-friendly structure
+
+## Technologies Used
+
+- Next.js 14 (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Google Fonts (DM Sans, Space Mono)
+- Google Generative AI (Gemini model)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- npm (v6 or later)
+
+### Installation
+
+1. Clone the repository:
+   `https://github.com/ashutosh-rath02/dialogue-ai`
+
+2. Navigate to the project directory:
+   `cd cinequote`
+
+3. Install dependencies:
+   `npm install`
+
+4. Create a `.env.local` file in the root directory and add your Google AI API key:
+   `GOOGLE_AI_API_KEY=your_api_key_here`
+
+5. Run the development server:
+   `npm run dev`
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+## Usage
+
+1. Enter the name of a movie in the input field on the homepage.
+2. Click the "Generate" button or press Enter.
+3. The application will display a list of generated quotes from the specified movie.
+
+## Contributing
+
+- Fork the repository
+- Create your feature branch (git checkout -b feature/AmazingFeature)
+- Commit your changes (git commit -m 'Add some AmazingFeature')
+- Push to the branch (git push origin feature/AmazingFeature)
+- Open a Pull Request
+
+## Contact
+
+Ashutosh Rath - @v_ashu_dev - ashutosh123rath@gmail.com
+Project Link: https://github.com/ashutosh-rath02/dialogue-ai

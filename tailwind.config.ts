@@ -12,6 +12,7 @@ const config: Config = {
       fontFamily: {
         heading: ["var(--font-heading)", ...fontFamily.sans],
         body: ["var(--font-body)", ...fontFamily.mono],
+        retro: ['"Press Start 2P"', "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
