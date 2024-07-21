@@ -1,4 +1,3 @@
-// app/layout.tsx
 import { DM_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "./lib/utils";
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "Screenflick",
     images: [
       {
-        url: "https://screenflick.vercel.app",
+        url: "https://res.cloudinary.com/dhnkuonev/image/upload/v1721569736/Screenshot_2024-07-21_191721_vfvcrk.png",
         width: 1200,
         height: 630,
       },
@@ -41,7 +40,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Screenflick",
     description: "Generate iconic movie quotes from films around the world.",
-    images: ["https://screenflick.vercel.app/twitter-image.jpg"],
+    images: [
+      "https://res.cloudinary.com/dhnkuonev/image/upload/v1721569736/Screenshot_2024-07-21_191721_vfvcrk.png",
+    ],
   },
 };
 

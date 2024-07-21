@@ -15,7 +15,7 @@ export default function DialogueDisplay({
   dialogues,
   movieName,
 }: DialogueDisplayProps) {
-  const [targetLanguage, setTargetLanguage] = useState("English");
+  const [targetLanguage, setTargetLanguage] = useState("Hinglish");
   const [translations, setTranslations] = useState<string[]>([]);
   const [isTranslating, setIsTranslating] = useState(false);
   const [error, setError] = useState<string | null>(null);

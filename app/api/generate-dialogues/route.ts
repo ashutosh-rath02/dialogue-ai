@@ -14,11 +14,14 @@ export async function POST(request: Request) {
 **Character:** [Character Name]
 **Original:** [Original Dialogue]
 English: [English Translation if needed]
+Hinglish: [Hinglish Translation if needed]
 
 **Dialogue 2:**
 **Character:** [Character Name]
 **Original:** [Original Dialogue]
-English: [English Translation if needed]`;
+English: [English Translation if needed]
+Hinglish: [Hinglish Translation if needed]
+`;
 
     const result = await geminiModel.generateContent(prompt);
     const response = await result.response;
