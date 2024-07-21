@@ -6,24 +6,25 @@ import DialogueDisplay from "./components/DialogueDisplay";
 
 export default function Home() {
   const [dialogues, setDialogues] = useState("");
+  const [movieName, setMovieName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (movieName: string) => {
+  const handleSubmit = async (submittedMovieName: string) => {
     setLoading(true);
     setError("");
     setDialogues("");
+    setMovieName(submittedMovieName);
     try {
       const response = await fetch("/api/generate-dialogues", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ movieName }),
+        body: JSON.stringify({ movieName: submittedMovieName }),
       });
       const data = await response.json();
       if (response.ok) {
-        console.log("Received dialogues:", data.dialogues); // Debug log
         setDialogues(data.dialogues);
       } else {
         setError(data.error || "An error occurred");
@@ -36,15 +37,14 @@ export default function Home() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <p className="text-lg mb-6 text-gray-300">
-        Enter the name of any movie to generate famous dialogues in their
-        original language using AI.
-      </p>
+    <div className="container mx-auto max-w-3xl">
+      <h1 className="text-3xl font-bold mb-8">
+        Search for Famous Movie Dialogues
+      </h1>
       <DialogueForm onSubmit={handleSubmit} loading={loading} />
       {error && (
         <div
-          className="bg-red-900 border border-red-600 text-red-100 px-4 py-3 rounded relative mb-6"
+          className="bg-destructive text-destructive-foreground px-4 py-3 rounded relative mb-6"
           role="alert"
         >
           <strong className="font-bold">Error: </strong>
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
       )}
       {dialogues ? (
-        <DialogueDisplay dialogues={dialogues} />
+        <DialogueDisplay dialogues={dialogues} movieName={movieName} />
       ) : loading ? (
         <p>Loading...</p>
       ) : null}

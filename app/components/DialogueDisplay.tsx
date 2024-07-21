@@ -8,13 +8,19 @@ interface Dialogue {
 
 interface DialogueDisplayProps {
   dialogues: string;
+  movieName: string;
 }
 
-export default function DialogueDisplay({ dialogues }: DialogueDisplayProps) {
+export default function DialogueDisplay({
+  dialogues,
+  movieName,
+}: DialogueDisplayProps) {
   const [targetLanguage, setTargetLanguage] = useState("English");
   const [translations, setTranslations] = useState<string[]>([]);
   const [isTranslating, setIsTranslating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [allDialogues, setAllDialogues] = useState(dialogues);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const parseDialogues = (
     rawDialogues: string
@@ -78,6 +84,35 @@ export default function DialogueDisplay({ dialogues }: DialogueDisplayProps) {
     }
   };
 
+  const handleLoadMore = async () => {
+    setIsLoadingMore(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/load-more-dialogues", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ movieName, count: 3 }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setAllDialogues(
+          (prevDialogues) => prevDialogues + "\n\n" + data.dialogues
+        );
+      } else {
+        setError(
+          data.error || "An error occurred while loading more dialogues."
+        );
+      }
+    } catch (error) {
+      console.error("Error loading more dialogues:", error);
+      setError("An unexpected error occurred. Please try again later.");
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
+
   const { origin, dialogues: parsedDialogues } = parseDialogues(dialogues);
 
   if (!parsedDialogues.length) {
@@ -85,18 +120,49 @@ export default function DialogueDisplay({ dialogues }: DialogueDisplayProps) {
   }
 
   return (
-    <div className="mt-8 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">
-        Generated Dialogues
+    <div className="space-y-8">
+      <h2 className="text-2xl font-bold mb-4">
+        Famous Dialogues from &apos;{movieName}&apos;
       </h2>
-      <p className="text-base mb-6 text-center text-gray-600">
-        Origin: {origin}
-      </p>
-      <div className="mb-6 flex justify-center items-center">
+      <div className="space-y-4">
+        {parsedDialogues.map((dialogue, index) => (
+          <div key={index} className="bg-muted rounded-md p-4">
+            <p className="text-lg font-bold mb-2">{dialogue.original}</p>
+            <p className="text-muted-foreground">{dialogue.character}</p>
+            <p className="text-muted-foreground">{dialogue.english}</p>
+            {isTranslating && (
+              <div className="flex items-center space-x-2 text-muted-foreground">
+                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-pulse"></div>
+                <div
+                  className="w-2 h-2 bg-muted-foreground rounded-full animate-pulse"
+                  style={{ animationDelay: "0.2s" }}
+                ></div>
+                <div
+                  className="w-2 h-2 bg-muted-foreground rounded-full animate-pulse"
+                  style={{ animationDelay: "0.4s" }}
+                ></div>
+              </div>
+            )}
+            {!isTranslating && translations[index] && (
+              <p className="text-muted-foreground text-sm italic mt-2">
+                {targetLanguage}: {translations[index]}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mt-6 flex justify-center items-center space-x-4">
+        <button
+          onClick={handleLoadMore}
+          disabled={isLoadingMore}
+          className="bg-secondary text-secondary-foreground px-6 py-2 rounded hover:bg-secondary/90 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-secondary disabled:bg-secondary/70 disabled:cursor-not-allowed"
+        >
+          {isLoadingMore ? "Loading..." : "Load More"}
+        </button>
         <select
           value={targetLanguage}
           onChange={(e) => setTargetLanguage(e.target.value)}
-          className="bg-white text-gray-800 px-4 py-2 rounded-l border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-background text-foreground px-4 py-2 rounded border border-input focus:outline-none focus:ring-2 focus:ring-primary"
         >
           <option value="English">English</option>
           <option value="Hinglish">Hinglish</option>
@@ -104,46 +170,16 @@ export default function DialogueDisplay({ dialogues }: DialogueDisplayProps) {
         <button
           onClick={handleTranslate}
           disabled={isTranslating}
-          className="bg-blue-500 text-white px-6 py-2 rounded-r hover:bg-blue-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300 disabled:cursor-not-allowed"
+          className="bg-primary text-primary-foreground px-6 py-2 rounded hover:bg-primary/90 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-primary/70 disabled:cursor-not-allowed"
         >
           {isTranslating ? "Translating..." : "Translate"}
         </button>
       </div>
-
       {error && (
-        <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+        <div className="mt-6 p-4 bg-destructive text-destructive-foreground rounded">
           {error}
         </div>
       )}
-
-      <div className="space-y-6">
-        {parsedDialogues.map((dialogue, index) => (
-          <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-            <p className="font-semibold text-lg text-gray-800 mb-2">
-              {dialogue.character}
-            </p>
-            <p className="text-gray-700 mb-3">{dialogue.original}</p>
-            {isTranslating && (
-              <div className="flex items-center space-x-2 text-gray-400">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
-                <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"
-                  style={{ animationDelay: "0.2s" }}
-                ></div>
-                <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"
-                  style={{ animationDelay: "0.4s" }}
-                ></div>
-              </div>
-            )}
-            {!isTranslating && translations[index] && (
-              <p className="text-gray-600 text-sm italic">
-                {targetLanguage}: {translations[index]}
-              </p>
-            )}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
