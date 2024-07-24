@@ -24,7 +24,7 @@ Screenflick is a web application that generates iconic movie quotes from films a
 
 ## Technologies Used
 
-- Next.js 13 (App Router)
+- Next.js 14 (App Router)
 - React
 - TypeScript
 - Tailwind CSS
